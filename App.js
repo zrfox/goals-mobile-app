@@ -1,16 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, View, Button, TextInput, FlatList } from 'react-native';
 import { useState } from 'react';
+
+import GoalItem from './components/GoalItem';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
   const [courseGoals, setCourseGoals] = useState([]);
+  
   function goalInputHandler(enteredText) {
     setEnteredGoalText(enteredText);
   }
 
   function addGoalHandler() {
-    setCourseGoals((currentCourseGoals) => [...courseGoals, enteredGoalText]);
+    setCourseGoals((currentCourseGoals) => [
+      ...currentCourseGoals, 
+      {text: enteredGoalText, key: Math.random().toString()}, // Object is used to include key for each goal while using FlatList for lazy loading. 
+    ]);
   }
   return (
     <View style={styles.appContainer}>
@@ -20,12 +26,14 @@ export default function App() {
                     onChangeText={goalInputHandler} />
         <Button title='Add Goal' onPress={addGoalHandler}/>
       </View>
-      <View  style={styles.goalsContainer}>
-      <ScrollView>
-        {courseGoals.map((goal) => <Text style={styles.goalItem} key={goal}>{goal}</Text>)}
-      </ScrollView>
+      <View  style={styles.goalsContainer}> 
+      <FlatList data={courseGoals} renderItem={(itemData) =>{ 
+        return <GoalItem text={itemData.item.text} />
+      }}
+       />
       </View>
     </View>
+
   );
 }
 
@@ -36,9 +44,9 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'row', // sets direction of primary axis
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center', // determines cross-axis behavior
     marginBottom: 24,
     borderBottomWidth: 1,
     borderBottomColor: '#cccccc'
@@ -52,11 +60,5 @@ const styles = StyleSheet.create({
     flex: 4,
   }
   ,
-  goalItem: {
-    margin: 8,
-    padding: 8,
-    borderRadius: 6,
-    backgroundColor: '#5e0acc',
-    color: 'white',
-  }
+  
 });
