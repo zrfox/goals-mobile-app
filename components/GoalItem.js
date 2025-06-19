@@ -21,14 +21,14 @@ const styles = StyleSheet.create({
     margin: 8,
     padding: 8,
     borderRadius: 6,
-    backgroundColor: '#5e0acc',
-    color: 'white',
+    backgroundColor: '#75FB4C',
+    color: '000000',
   },
   pressedItem: {
     opacity: 0.5
   },
   goalText: {
-    color: 'white',
+    color: '000000',
     padding: 8,
   }
 });

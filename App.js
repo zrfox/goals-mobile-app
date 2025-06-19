@@ -33,7 +33,7 @@ function deleteGoalHandler(id) {
 
   return (
     <View style={styles.appContainer}>
-      <Button title='Add New Goal' color="#5e0acc" onPress={startAddGoalHandler} />
+      <Button title='Add New Goal' color="#75FB4C" onPress={startAddGoalHandler} />
       {modalIsVisible && <GoalInput visible={modalIsVisible} onAddGoal={addGoalHandler} onCancel={endAddGoalHandler}/>}
       <View  style={styles.goalsContainer}> 
       <FlatList data={courseGoals} renderItem={(itemData) =>{ 
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     padding: 50,
+    backgroundColor: '#189c5a',
   },
 
   goalsContainer: {
